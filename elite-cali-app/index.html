@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELITE | Injury Management</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Global Grain Overlay -->
+    <div class="grain-overlay"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="brand">
+                <h1>ELITE</h1>
+                <span class="subtitle">CALIS. // PREHAB_PROTOCOL_V1</span>
+            </div>
+            <div class="user-status">
+                <span id="date-display">2026.01.31</span>
+                <div class="status-dot"></div>
+            </div>
+        </header>
+
+        <!-- Dashboard Grid -->
+        <main class="dashboard">
+            
+            <!-- Panel 1: Daily Readiness -->
+            <section class="panel readiness-panel">
+                <div class="panel-header">
+                    <h2>01 // SYSTEM READY_CHECK</h2>
+                </div>
+                <div class="panel-content">
+                    <div class="metric-row">
+                        <label>SLEEP_QUAL</label>
+                        <div class="range-selector" data-metric="sleep">
+                            <button value="1">1</button>
+                            <button value="2">2</button>
+                            <button value="3">3</button>
+                            <button class="active" value="4">4</button>
+                            <button value="5">5</button>
+                        </div>
+                    </div>
+                    <div class="metric-row">
+                        <label>CNS_FATIGUE</label>
+                        <div class="toggle-group" data-metric="cns">
+                            <button value="low" class="active">LOW</button>
+                            <button value="med">MED</button>
+                            <button value="crit">CRIT</button>
+                        </div>
+                    </div>
+                    <div class="score-display">
+                        <span class="label">READY_SCORE</span>
+                        <span class="value" id="readiness-score">92%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Panel 2: Body Heatmap (Visual) -->
+            <section class="panel body-panel">
+                <div class="panel-header">
+                    <h2>02 // JOINT_INTEGRITY</h2>
+                    <span class="status-indicator">NO_ACUTE_PAIN</span>
+                </div>
+                <div class="body-map-container">
+                    <!-- Simple CSS/SVG Body Representation -->
+                    <svg viewBox="0 0 200 400" id="body-svg">
+                        <g class="body-group">
+                            <!-- Head -->
+                            <circle cx="100" cy="40" r="20" class="body-part" />
+                            <!-- Spine -->
+                            <line x1="100" y1="60" x2="100" y2="180" class="body-bone" />
+                            <!-- Shoulders -->
+                            <line x1="60" y1="70" x2="140" y2="70" class="body-bone" />
+                            <circle cx="60" cy="70" r="8" class="joint" id="shoulder-l" data-joint="Left Shoulder" />
+                            <circle cx="140" cy="70" r="8" class="joint" id="shoulder-r" data-joint="Right Shoulder" />
+                            <!-- Arms -->
+                            <line x1="60" y1="70" x2="40" y2="130" class="body-bone" />
+                            <line x1="140" y1="70" x2="160" y2="130" class="body-bone" />
+                            <circle cx="40" cy="130" r="6" class="joint" id="elbow-l" data-joint="Left Elbow" />
+                            <circle cx="160" cy="130" r="6" class="joint" id="elbow-r" data-joint="Right Elbow" />
+                            <!-- Forearms -->
+                            <line x1="40" y1="130" x2="30" y2="170" class="body-bone" />
+                            <line x1="160" y1="130" x2="170" y2="170" class="body-bone" />
+                            <circle cx="30" cy="170" r="5" class="joint" id="wrist-l" data-joint="Left Wrist" />
+                            <circle cx="170" cy="170" r="5" class="joint" id="wrist-r" data-joint="Right Wrist" />
+                            <!-- Hips -->
+                            <line x1="70" y1="180" x2="130" y2="180" class="body-bone" />
+                            <!-- Legs -->
+                            <line x1="70" y1="180" x2="70" y2="280" class="body-bone" />
+                            <line x1="130" y1="180" x2="130" y2="280" class="body-bone" />
+                            <circle cx="70" cy="280" r="7" class="joint" id="knee-l" data-joint="Left Knee" />
+                            <circle cx="130" cy="280" r="7" class="joint" id="knee-r" data-joint="Right Knee" />
+                            
+                            <line x1="70" y1="280" x2="70" y2="360" class="body-bone" />
+                            <line x1="130" y1="280" x2="130" y2="360" class="body-bone" />
+                            <circle cx="70" cy="360" r="6" class="joint" id="ankle-l" data-joint="Left Ankle" />
+                            <circle cx="130" cy="360" r="6" class="joint" id="ankle-r" data-joint="Right Ankle" />
+                        </g>
+                    </svg>
+                    <div class="tooltip" id="joint-tooltip">Select Joint</div>
+                </div>
+            </section>
+
+            <!-- Panel 3: Strain Analytics -->
+            <section class="panel analytics-panel">
+                <div class="panel-header">
+                    <h2>03 // LOAD_VELOCITY</h2>
+                </div>
+                <div class="chart-container">
+                    <!-- CSS-only Bar Chart -->
+                    <div class="bar-chart">
+                        <div class="bar-group">
+                            <div class="bar" style="height: 40%;"></div>
+                            <span class="bar-label">MON</span>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" style="height: 80%;"></div>
+                            <span class="bar-label">TUE</span>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar warning" style="height: 95%;"></div>
+                            <span class="bar-label">WED</span>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" style="height: 20%;"></div>
+                            <span class="bar-label">THU</span>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" style="height: 60%;"></div>
+                            <span class="bar-label">FRI</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="log-entry">
+                    <h3>LOG WORKOUT</h3>
+                    <div class="input-group">
+                        <input type="text" placeholder="EXERCISE_NAME (e.g. Planche)" />
+                        <button>LOG</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
